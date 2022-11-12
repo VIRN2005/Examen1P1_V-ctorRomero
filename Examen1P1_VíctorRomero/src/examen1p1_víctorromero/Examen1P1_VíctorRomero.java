@@ -8,6 +8,8 @@ public class Examen1P1_VíctorRomero {
     static Scanner leer = new Scanner(System.in);
 
     public static void main(String[] args) {
+        // TODO code application logic here
+
         System.out.println("Victor Romero - 12211079");
 
         int opcion;
@@ -19,9 +21,11 @@ public class Examen1P1_VíctorRomero {
             System.out.println("----------------------- ");
 
             System.out.println("1 -> EJERCICIO 1 - DIVISORES PRIMOS");
-            System.out.println("2 -> EJERCICIO 2 - ");
-            System.out.println("3 -> EJERCICIO 3 - ");
-            System.out.println("4 -> SALIDA");
+            System.out.println("2 -> EJERCICIO 2 - CONTORNO DE PIRAMIDE");
+            System.out.println("3 -> EJERCICIO 3 - VECINOS");
+            System.out.println("4 -> EJERCICIO EXTRA - TRIANGULO PASCAL ");
+            System.out.println("5 -> EJERCICIO EXTRA - TRIANGULO PASCAL <<PASO A PASO>>");
+            System.out.println("6 -> SALIDA");
             System.out.println(" ");
             System.out.println(" ");
 
@@ -91,6 +95,34 @@ public class Examen1P1_VíctorRomero {
                 }
                 break; // FIN EJERCICIO 3    
 
+                case 4:{
+                    System.out.println(".: OPCION 4 :.");
+                    System.out.println("PASCAL EN CURSO...");
+                    System.out.println(" ");
+
+                    System.out.println("Ingrese un numero para el tamano: ");
+                    int filas = leer.nextInt();
+
+                    System.out.println("Triangulo Pascal: ");
+                    pascal(filas);
+                }break;
+
+                case 5:{
+                    System.out.println(".: OPCION 4 :.");
+                    System.out.println("PASCAL EN CURSO...");
+                    System.out.println(" ");
+                    
+                    System.out.println("Ingrese un numero para el tamano: ");
+                    int N = leer.nextInt();
+
+                    while (N <= 0) {
+                        System.out.println("ERROR 404!");
+                        System.out.println(">>Ingrese un tamano valido: ");
+                        N = leer.nextInt();
+                    }
+                    pascal2(N);
+                }break;
+
                 default: {
                     System.out.println("LAB COMPLETED!");
                     System.out.println("TENGAN UN BUEN DIA CARLOS & EDUARDO!");
@@ -100,7 +132,7 @@ public class Examen1P1_VíctorRomero {
 
             }// FIN SWITCH
 
-        } while (opcion != 4); // FIN DO WHILE
+        } while (opcion != 5); // FIN DO WHILE
     }
 
     public static String primos(int numero) {
@@ -123,20 +155,18 @@ public class Examen1P1_VíctorRomero {
                 /* if (j == (((tamano - 1) / 2) - i) || j == ((tamano - 1) / 2) + i || j==(tamano - 1) / 2) {
                     System.out.print("+");
                 }*/
-                if (i==(((tamano-1)/2)-1) && (j>0) && (j<(tamano-1))){
+                if (i == (((tamano - 1) / 2) - 1) && (j > 0) && (j < (tamano - 1))) {
                     System.out.print("+");
-                }else
-                if(i==((tamano + 1) / 2)-1 ){
-                System.out.print("*");  }      
-                else if (j == (((tamano - 1) / 2) - i) || j == ((tamano - 1) / 2) + i) {
+                } else if (i == ((tamano + 1) / 2) - 1) {
+                    System.out.print("*");
+                } else if (j == (((tamano - 1) / 2) - i) || j == ((tamano - 1) / 2) + i) {
                     System.out.print("+");
                 } else if (j < (((tamano - 1) / 2) - i) || j > ((tamano - 1) / 2) + i) {
-                    System.out.print("*");}
-                else {
+                    System.out.print("*");
+                } else {
                     System.out.print(" ");
-                } 
-               
-                
+                }
+
             }
 
             System.out.println("");// For J
@@ -144,7 +174,6 @@ public class Examen1P1_VíctorRomero {
                 for (int v = 1; v <= tamano - j; v++) {
                     System.out.print("*");
                 }// For Interno
-
                 for (int v = 1; v <= j; v++) {
                     System.out.print(" *");
                 }
@@ -183,4 +212,56 @@ public class Examen1P1_VíctorRomero {
         }
         return palabra2;
     }
+
+    public static void pascal(int filas) {
+        int[] a = new int[1];
+        for (int i = 1; i <= filas; i++) {
+            int[] x = new int[i];
+            for (int j = 0; j < i; j++) {
+                if (j == 0 || j == (i - 1)) {
+                    x[j] = 1;
+                } else {
+                    x[j] = a[j] + a[j - 1];
+                }
+                System.out.print(x[j] + " ");
+            }
+            a = x;
+            System.out.println();
+        }
+    }
+
+    public static int factorial(int N) {
+        int facto = 1;
+        for (int i = 1; i <= N; i++) {
+            facto = facto * i;
+        }
+        return facto;
+    }
+
+    public static int permutacion(int n, int r) {
+        int permu = 0;
+        permu = factorial(n) / factorial(n - r);
+
+        return permu;
+    }
+
+    public static int combinacion(int n, int r) {
+        int combi = 0;
+        combi = permutacion(n, r) / factorial(r);
+
+        return combi;
+
+    }
+
+    public static void pascal2(int N) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j <= i; j++) {
+                int n = i;
+                int r = j;
+                System.out.print("[" + combinacion(n, r) + "]");
+            }
+            System.out.println("");
+        }
+    }
+
 }
